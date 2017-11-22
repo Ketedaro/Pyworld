@@ -56,12 +56,12 @@ class histo():
 		print('\n')
 		print(max(liste_nombrePopulation))
 		print('\n')
-		x = list(range(0, 1500000000, 20000000)) #traite les budget de  a 400 millions $ en les regroupant par tranche de 50 millions $
+		x = list(range(0, 1500000000, 20000000)) 
 		#creation des titres des axes
 		values = np.array(liste_nombrePopulation)
 		nombre_de_population = np.array(x)
 		
-		n, bins, patches = plt.hist(liste_nombrePopulation, bins=x, color='green')
+		n, bins, patches = plt.hist(liste_nombrePopulation, bins=x, color='green') #on trace l'histogramme
 		
 		cm = plt.cm.get_cmap('RdYlBu_r') #mapping de la couleur
 		
@@ -69,27 +69,66 @@ class histo():
 		bin_centers = 0.5 * (bins[0:]) # scale values to interval [0:]
 		col = bin_centers - min(bin_centers) #on définit la couleur sur une barre
 		col /= max(col) #définition de la limite de la barre
-
+		
 		for c, p in zip(col, patches): #boucle pour parcourir toutes les barres
 			plt.setp(p, 'facecolor', cm(c)) #setup le gradient de couleur
 
-		
-		
-		
 		plt.xlabel('Population')
 		plt.ylabel('Nombres de pays')
 		plt.title('Nombre de Pays en fonction des tranches du nombre de Population')
 		plt.grid()
+		
+		fig = plt.gcf()
+		fig.canvas.set_window_title('Histogramme') #On change le nom de la figure
+		
 		plt.show()
 
+	def traceHistoZoom(self):
+		liste_nombrePopulation = self.population
+		print('\n')
+		print(liste_nombrePopulation)
+		print('\n')
+		print(max(liste_nombrePopulation))
+		print('\n')
+		x = list(range(0, 1500000000, 20000000)) 
+		#creation des titres des axes
+		values = np.array(liste_nombrePopulation)
+		nombre_de_population = np.array(x)
+		
+		plt.ylim(0,25)
+		n, bins, patches = plt.hist(liste_nombrePopulation, bins=x, color='green') #on trace l'histogramme
+		
+		cm = plt.cm.get_cmap('RdYlBu_r') #mapping de la couleur
+		
+		
+		bin_centers = 0.5 * (bins[0:]) # scale values to interval [0:]
+		col = bin_centers - min(bin_centers) #on définit la couleur sur une barre
+		col /= max(col) #définition de la limite de la barre
+		
+		for c, p in zip(col, patches): #boucle pour parcourir toutes les barres
+			plt.setp(p, 'facecolor', cm(c)) #setup le gradient de couleur
+
+		plt.xlabel('Population')
+		plt.ylabel('Nombres de pays')
+		plt.title('Nombre de Pays en fonction des tranches du nombre de Population')
+		plt.grid()
+		
+		fig = plt.gcf()
+		fig.canvas.set_window_title('Histogramme Zoom') #On change le nom de la figure
+		
+		plt.show()
 
 
 def main(): #permet d'executer le programme de creation de l'histogramme dans le bon ordre
 	h = histo()
 	h.filtre_fichier()
-	#print("veuillez patientez svp... une fois que le premier histogramme est affiché, fermer celui-ci pour charger le deuxieme et patientez...")
-	#print("Veuillez lire le rapport pour plus d'information.")
+	print('\n')
+	print("veuillez patientez svp... une fois que le premier histogramme est affiché, fermer celui-ci pour charger le deuxieme et patientez...")
+	print('\n')
+	print("Veuillez lire le rapport pour plus d'information.")
+	print('\n')
 	h.traceHisto()
+	h.traceHistoZoom()
 
 if __name__ == '__main__':
 	main()
