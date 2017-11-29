@@ -1,7 +1,7 @@
-import code_histo
+import geolocalisation
 
 def main():
-	code_histo.main()
+	geolocalisation.trace_map()
 
 
 if __name__ == '__main__':
